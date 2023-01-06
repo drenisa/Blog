@@ -35,7 +35,7 @@ exports.createBlog = (req, res, next) => {
     
     
     // "dita e pare e veres"  => "ditaepareeveres"
-    const fileName = req.body.title.replaceAll("", "")
+    const fileName = req.body.title.replace("", "")
     // .png .jpg .PNG
     const fileext = path.extname(req.file.originalname).toLowerCase();
     // "ditaepareeveres.png"
