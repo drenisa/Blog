@@ -13,13 +13,20 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: true
 }));
-// start the server on port 80
-app.listen(80);
+// start the server on port 
+console.log()
+app.listen(process.env.PORT, () => {
+console.log("Server started")
+});
+
 app.set('view engine', 'ejs');
 app.use('/static', express.static('static'));
 
 // connect to db with the name: blog02
-mongoose.connect('mongodb+srv://drenisa:test123@cluster0.t8k7jwv.mongodb.net/blog02');
+mongoose.connect('mongodb+srv://drenisa:' + process.env.PORT + '@cluster0.t8k7jwv.mongodb.net/blog02')
+    .then(() => { console.log("DB connected") },
+    err => { console.log("DB not connected")}
+    );
 
 // localhost/
 app.use('/auth', authRouter);
@@ -27,11 +34,11 @@ app.use('/auth', authRouter);
 // localhost/
 app.use('/blogs', auth.autherize, blogRouter);
 
-app.use('*', (req, res)=> {
-    if(req.session.user) {
-        res.redirect('/blogs') 
+app.use('*', (req, res) => {
+    if (req.session.user) {
+        res.redirect('/blogs')
     } else {
         res.redirect('/auth/login')
-    
+
     }
 });
