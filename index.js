@@ -23,7 +23,7 @@ app.set('view engine', 'ejs');
 app.use('/static', express.static('static'));
 
 // connect to db with the name: blog02
-mongoose.connect('mongodb+srv://drenisa:' + process.env.PORT + '@cluster0.t8k7jwv.mongodb.net/blog02')
+mongoose.connect('mongodb+srv://drenisa:' + process.env.DB_PASS + '@cluster0.t8k7jwv.mongodb.net/blog02')
     .then(() => { console.log("DB connected") },
     err => { console.log("DB not connected")}
     );
